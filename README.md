@@ -1,36 +1,200 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mangalaya - Full-Stack Task Manager
 
-## Getting Started
+A beautiful, modern task management application built with Next.js 15, featuring real-time updates, glassmorphic design, and comprehensive analytics.
 
-First, run the development server:
+## ✨ Features
 
+### 🔐 Authentication
+- **JWT-based authentication** with httpOnly cookies
+- **Secure password hashing** using bcrypt
+- **Protected routes** with middleware
+- **User registration and login** with form validation
+
+### 📋 Task Management
+- **Full CRUD operations** for tasks
+- **Task status tracking** (To Do, In Progress, Done)
+- **Due date management** with overdue detection
+- **Rich task descriptions** and metadata
+- **User-specific task isolation**
+
+### ⚡ Real-time Updates
+- **Socket.IO integration** for live notifications
+- **Real-time task updates** across all connected clients
+- **Animated toast notifications** for all actions
+- **Instant status changes** and task modifications
+
+### 🎨 Beautiful UI/UX
+- **Glassmorphic design** with backdrop blur effects
+- **Framer Motion animations** for smooth interactions
+- **Responsive design** for all device sizes
+- **Gradient backgrounds** and modern aesthetics
+- **Custom scrollbars** and hover effects
+
+### 📊 Analytics & Charts
+- **Task status distribution** (pie chart)
+- **Task creation trends** (bar chart)
+- **Completion rate tracking** (line chart)
+- **Real-time statistics** and insights
+- **Interactive charts** with Recharts
+
+### 🛠️ Technical Features
+- **Redux Toolkit** for state management
+- **TypeScript** for type safety
+- **MongoDB** with Mongoose ODM
+- **Next.js 15** with App Router
+- **TailwindCSS** for styling
+- **Lucide React** for icons
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ 
+- MongoDB (local or cloud)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd mangalaya
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env.local` file in the root directory:
+   ```env
+   MONGODB_URI=mongodb://localhost:27017/mangalaya
+   JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+   NEXTAUTH_URL=http://localhost:3000
+   NEXTAUTH_SECRET=your-nextauth-secret-key
+   ```
+
+4. **Start the development server**
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   ```
+
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── api/               # API routes
+│   │   ├── auth/          # Authentication endpoints
+│   │   └── tasks/         # Task CRUD endpoints
+│   ├── dashboard/         # Dashboard pages
+│   ├── login/             # Login page
+│   ├── register/          # Registration page
+│   └── layout.tsx         # Root layout
+├── components/            # React components
+│   ├── Charts/            # Analytics components
+│   ├── Layout/            # Layout components
+│   ├── providers/         # Context providers
+│   └── ui/                # Reusable UI components
+├── hooks/                 # Custom React hooks
+├── lib/                   # Utility libraries
+├── models/                # MongoDB models
+├── store/                 # Redux store and slices
+└── types/                 # TypeScript type definitions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 API Endpoints
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Authentication
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `POST /api/auth/logout` - User logout
+- `GET /api/auth/me` - Get current user
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Tasks
+- `GET /api/tasks` - Get all user tasks
+- `POST /api/tasks` - Create new task
+- `GET /api/tasks/[id]` - Get specific task
+- `PUT /api/tasks/[id]` - Update task
+- `DELETE /api/tasks/[id]` - Delete task
 
-## Learn More
+## 🎯 Key Components
 
-To learn more about Next.js, take a look at the following resources:
+### Task Management
+- **TaskItem**: Individual task card with status controls
+- **TaskForm**: Modal form for creating/editing tasks
+- **TaskAnalytics**: Charts and statistics dashboard
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### UI Components
+- **Button**: Animated button with multiple variants
+- **Input/Textarea**: Form inputs with validation
+- **Modal**: Glassmorphic modal with animations
+- **Toast**: Real-time notification system
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Layout
+- **Navbar**: Top navigation with user info
+- **Sidebar**: Task filters and navigation
+- **ReduxProvider**: State management provider
+- **SocketProvider**: Real-time connection provider
 
-## Deploy on Vercel
+## 🔒 Security Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **JWT tokens** stored in httpOnly cookies
+- **Password hashing** with bcrypt
+- **Input validation** on both client and server
+- **Protected routes** with middleware
+- **User isolation** for all data operations
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📱 Responsive Design
+
+- **Mobile-first** approach
+- **Tablet optimization** for medium screens
+- **Desktop enhancement** for large screens
+- **Touch-friendly** interactions
+- **Adaptive layouts** for all components
+
+## 🚀 Deployment
+
+### Environment Setup
+1. Set up MongoDB database (MongoDB Atlas recommended)
+2. Configure environment variables for production
+3. Update JWT secrets and database URLs
+
+### Build and Deploy
+```bash
+npm run build
+npm start
+```
+
+### Recommended Platforms
+- **Vercel** (recommended for Next.js)
+- **Netlify**
+- **Railway**
+- **DigitalOcean App Platform**
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+
+- **Next.js** team for the amazing framework
+- **Framer Motion** for smooth animations
+- **TailwindCSS** for utility-first styling
+- **Recharts** for beautiful charts
+- **Socket.IO** for real-time functionality
+
+---
+
+Built with ❤️ using Next.js 15, TypeScript, and modern web technologies.
