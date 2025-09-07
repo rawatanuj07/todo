@@ -26,7 +26,7 @@ export const SocketHandler = (req: NextApiResponseServerIO, res: NextApiResponse
       addTrailingSlash: false,
       cors: {
         origin: process.env.NODE_ENV === 'production' 
-          ? process.env.NEXTAUTH_URL 
+          ? 'https://todo-six-zeta-11.vercel.app'
           : 'http://localhost:3000',
         methods: ['GET', 'POST'],
         credentials: true,

@@ -7,19 +7,26 @@ import { Task } from '@/types';
 
 export const useSocket = () => {
   const socketRef = useRef<Socket | null>(null);
+  const errorNotifiedRef = useRef<boolean>(false);
   const dispatch = useAppDispatch();
   const { isAuthenticated, token } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (isAuthenticated && token && typeof window !== 'undefined') {
       // Initialize socket connection
-      socketRef.current = io(process.env.NODE_ENV === 'production' 
-        ? process.env.NEXTAUTH_URL || 'https://your-domain.com'
-        : 'http://localhost:3000', {
+      const socketUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://todo-six-zeta-11.vercel.app'
+        : 'http://localhost:3000';
+      
+      console.log('Connecting to socket:', socketUrl);
+      
+      socketRef.current = io(socketUrl, {
         path: '/api/socket',
         auth: {
           token,
         },
+        transports: ['websocket', 'polling'],
+        timeout: 10000,
       });
 
       const socket = socketRef.current;
@@ -64,11 +71,20 @@ export const useSocket = () => {
       // Error handling
       socket.on('connect_error', (error) => {
         console.error('Socket connection error:', error);
-        dispatch(addNotification({
-          type: 'error',
-          title: 'Connection Error',
-          message: 'Failed to connect to real-time updates',
-        }));
+        // Only show error notification once per session
+        if (!errorNotifiedRef.current) {
+          dispatch(addNotification({
+            type: 'error',
+            title: 'Connection Error',
+            message: 'Failed to connect to real-time updates',
+          }));
+          errorNotifiedRef.current = true;
+        }
+      });
+
+      // Reset error notification flag on successful connection
+      socket.on('connect', () => {
+        errorNotifiedRef.current = false;
       });
     }
 
